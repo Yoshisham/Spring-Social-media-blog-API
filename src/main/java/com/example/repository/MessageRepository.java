@@ -8,4 +8,6 @@ import com.example.entity.Message;
 @Repository
 public interface MessageRepository extends JpaRepository<Message, Integer> {
     Message findByPostedBy(Integer postedBy);
+
+    Message findByMessageId(Integer messageId);
 }
