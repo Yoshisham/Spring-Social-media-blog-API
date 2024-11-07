@@ -1,7 +1,5 @@
 package com.example.service;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,5 +28,16 @@ public class AccountService {
         }
     
         throw new ClientError();
+    }
+
+    public Account userLogin(Account account) {
+        Account dbAccount = accountRepository.findByUsername(account.getUsername());
+
+        if (dbAccount != null) {
+            if (dbAccount.getUsername().equals(account.getUsername()) && dbAccount.getPassword().equals(account.getPassword())) {
+                return dbAccount;
+            }
+        }
+        throw new UnauthorizedLogin();
     }
 }

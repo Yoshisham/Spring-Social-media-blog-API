@@ -4,6 +4,7 @@ package com.example.controller;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -29,17 +31,24 @@ public class SocialMediaController {
     MessageService messageService;
 
     @Autowired
-    public SocialMediaController(AccountService accountService) {
+    public SocialMediaController(AccountService accountService, MessageService messageService) {
         this.accountService = accountService;
-    }
-
-    public SocialMediaController(MessageService messageService) {
         this.messageService = messageService;
     }
+
 
     @PostMapping("/register")
     public Account register(@RequestBody Account newUser) {
         return accountService.registerAccount(newUser);
-        
+    }
+
+    @PostMapping("/login")
+    public Account login(@RequestBody Account account) {
+        return accountService.userLogin(account);
+    }
+
+    @PostMapping("/messages")
+    public Message createMsg(@RequestBody Message message) {
+        return messageService.createMessage(message);
     }
 }
