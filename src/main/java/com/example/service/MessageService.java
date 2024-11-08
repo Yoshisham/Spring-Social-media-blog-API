@@ -21,7 +21,7 @@ public class MessageService {
 
     public Message createMessage(Message message) {
         if (!message.getMessageText().isBlank() && message.getMessageText().length()<=255){
-            if (messageRepository.findByPostedBy(message.getPostedBy()) != null) {
+            if (!messageRepository.findByPostedBy(message.getPostedBy()).isEmpty()) {
                 return messageRepository.save(message);
             }
         }
@@ -45,5 +45,22 @@ public class MessageService {
         }
 
         return null;
+    }
+
+    public Integer updateMessage(Integer messageId, String messageText) {
+        Message message = messageRepository.findByMessageId(messageId);
+    
+        if (message != null) {
+            if (!messageText.isBlank() && messageText.length()<=255)
+                message.setMessageText(messageText);
+                messageRepository.save(message);
+                return 1;
+            }
+        }
+        throw new ClientError();
+    }
+
+    public List<Message> getAllMessagesByUserId(Integer postedBy) {
+        return messageRepository.findByPostedBy(postedBy);
     }
 }

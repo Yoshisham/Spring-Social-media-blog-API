@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,5 +71,15 @@ public class SocialMediaController {
     @DeleteMapping("/messages/{messageId}")
     public Integer deleteMsgById(@PathVariable Integer messageId) {
         return messageService.deleteMessageById(messageId);
+    }
+
+    @PatchMapping("/messages/{messageId}")
+    public Integer updateMsg(@PathVariable Integer messageId, @RequestBody String messageText) {
+        return messageService.updateMessage(messageId, messageText);
+    }
+
+    @GetMapping("/accounts/{accountId}/messages") 
+    public List<Message> getAllMsgsFromUser(@PathVariable Integer accountId) {
+        return messageService.getAllMessagesByUserId(accountId);
     }
 }
