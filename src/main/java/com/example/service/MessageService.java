@@ -51,7 +51,7 @@ public class MessageService {
         Message message = messageRepository.findByMessageId(messageId);
     
         if (message != null) {
-            if (!messageText.isBlank() && messageText.length()<=255)
+            if (!messageText.isBlank() && messageText.length()<=255){
                 message.setMessageText(messageText);
                 messageRepository.save(message);
                 return 1;
