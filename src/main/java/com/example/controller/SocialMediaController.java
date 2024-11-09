@@ -42,7 +42,6 @@ public class SocialMediaController {
         this.messageService = messageService;
     }
 
-
     @PostMapping("/register")
     public Account register(@RequestBody Account newUser) {
         return accountService.registerAccount(newUser);
@@ -74,8 +73,8 @@ public class SocialMediaController {
     }
 
     @PatchMapping("/messages/{messageId}")
-    public Integer updateMsg(@PathVariable Integer messageId, @RequestBody String messageText) {
-        return messageService.updateMessage(messageId, messageText);
+    public Integer updateMsg(@PathVariable Integer messageId, @RequestBody Message message) {
+        return messageService.updateMessage(messageId, message);
     }
 
     @GetMapping("/accounts/{accountId}/messages") 

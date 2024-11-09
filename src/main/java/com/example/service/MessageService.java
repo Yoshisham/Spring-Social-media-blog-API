@@ -47,13 +47,13 @@ public class MessageService {
         return null;
     }
 
-    public Integer updateMessage(Integer messageId, String messageText) {
-        Message message = messageRepository.findByMessageId(messageId);
-    
-        if (message != null) {
-            if (!messageText.isBlank() && messageText.length()<=255){
-                message.setMessageText(messageText);
-                messageRepository.save(message);
+    public Integer updateMessage(Integer messageId, Message message) {
+        Message dbMessage = messageRepository.findByMessageId(messageId);
+
+        if (dbMessage != null) {
+            if (!message.getMessageText().isBlank() && message.getMessageText().length()<=255){
+                dbMessage.setMessageText(message.getMessageText());
+                messageRepository.save(dbMessage);
                 return 1;
             }
         }
